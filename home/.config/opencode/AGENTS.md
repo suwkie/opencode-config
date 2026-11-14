@@ -39,3 +39,14 @@ Work concerning `~/aria` (paths under it, or Aria named explicitly):
 Any codebase: broad search across many files → `explore`.
 
 Give each subagent the full task, paths, and constraints — it starts with no context from this session. Don't delegate a single file read or a one-line fix.
+
+## Project notes
+
+Every project has a note at `~/Документы/Obsidian Vault/Projects/<project>/INDEX.md`, one folder per project named exactly like its directory.
+
+- Starting work in a project: read its INDEX.md first. It holds the decisions and gotchas the code cannot show.
+- A durable decision, gotcha or dead end appears: update the index in the same turn — one or two lines. Move detail into a sibling note in that folder if it grows.
+- New project: create `Projects/<name>/INDEX.md` and add it to `Projects/INDEX.md`.
+- Never paste transcripts, diffs or file contents. The index is a map, not a diary.
+- Deep docs stay in the repo's `docs/`; the vault holds reasoning and cross-project notes.
+- A question spanning projects: grep the vault before grepping every repo.
