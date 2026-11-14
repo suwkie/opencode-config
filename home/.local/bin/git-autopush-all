@@ -1,0 +1,12 @@
+#!/bin/bash
+# Push commits that are ahead of upstream in every local repo under $HOME.
+# Safety net for commits whose post-commit push failed (offline, timeout).
+set -u
+find "$HOME" -maxdepth 4 -type d -name .git \
+  -not -path "*/node_modules/*" -not -path "*/.cache/*" -not -path "*/.local/*" 2>/dev/null |
+while read -r g; do
+  d=${g%/.git}
+  n=$(git -C "$d" rev-list --count '@{upstream}..HEAD' 2>/dev/null) || continue
+  [ "${n:-0}" -gt 0 ] || continue
+  GIT_TERMINAL_PROMPT=0 timeout 45 git -C "$d" push -q 2>/dev/null || true
+done

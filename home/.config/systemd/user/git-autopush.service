@@ -1,0 +1,6 @@
+[Unit]
+Description=Push unpushed commits in local repositories
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/git-autopush-all

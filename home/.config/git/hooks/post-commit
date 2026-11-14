@@ -1,0 +1,6 @@
+#!/bin/sh
+# Auto-push after every commit. Opt out per repo with: git config hooks.autopush false
+[ "$(git config --bool --get hooks.autopush 2>/dev/null)" = "false" ] && exit 0
+git rev-parse --abbrev-ref '@{upstream}' >/dev/null 2>&1 || exit 0
+GIT_TERMINAL_PROMPT=0 timeout 20 git push --quiet >/dev/null 2>&1 || true
+exit 0

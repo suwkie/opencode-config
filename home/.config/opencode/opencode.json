@@ -1,0 +1,17 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "plugins": [
+    "opencode-mem@latest",
+    "@dietrichgebert/ponytail",
+    "@cortexkit/opencode-magic-context",
+    "opencode-auto-resume"
+  ],
+  "mcp": {
+    "cloudflare": {
+      "type": "remote",
+      "url": "https://mcp.cloudflare.com/mcp",
+      "enabled": true,
+      "oauth": {}
+    }
+  }
+}
