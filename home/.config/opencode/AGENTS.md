@@ -25,18 +25,29 @@ Route before acting. Skills are procedures — load one with the `skill` tool *f
 - Spreadsheet `.xlsx`/`.csv` work → `xlsx`
 - PDF extract, merge, fill forms → `pdf`
 - Building an MCP server → `mcp-builder`
+- About to dispatch a subagent with a broad or vague question → `iterative-retrieval`
 
 If none match, don't load one. Never load two overlapping procedures for the same step.
 
 ## Subagents: delegate, don't inline
+
+Global agents, any repo. Dispatch them without being asked, the moment the trigger matches:
+
+- Something fails and the cause is unknown → `debugger`
+- A change exists and needs checking → `reviewer`
+- The change touches auth, user input, files, secrets or URLs → `security-auditor`
+- The task changes what a person sees: layout, type, colour, motion, responsive → `designer`
+- Options or ideas are requested, or a decision is blocked → `brainstormer`
+- A slowdown is measured or suspected, or a performance requirement exists → `optimizer`
+- Broad search across many files → `explore`
+
+Once one has responded, act on its answer instead of re-deriving it inline.
 
 Work concerning `~/aria` (paths under it, or Aria named explicitly):
 
 - Visual, UI, layout, typography, motion → `aria-designer`
 - QoL, usability, accessibility, MPRIS, performance ideas → `aria-brainstormer`
 - Review of Aria code: MPRIS/D-Bus, threading, textures, vector rendering, regressions → `aria-reviewer`
-
-Any codebase: broad search across many files → `explore`.
 
 Give each subagent the full task, paths, and constraints — it starts with no context from this session. Don't delegate a single file read or a one-line fix.
 
