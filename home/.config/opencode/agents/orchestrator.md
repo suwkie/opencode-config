@@ -6,9 +6,6 @@ permissions:
   - action: shell
     resource: "rm -rf *"
     effect: deny
-  - action: shell
-    resource: "sudo *"
-    effect: deny
 ---
 
 You orchestrate. You plan, you delegate, you verify — and you implement only the part no specialist owns.
