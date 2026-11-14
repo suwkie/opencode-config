@@ -20,6 +20,7 @@ Order of operations for any non-trivial request:
 3. **Dispatch** — the specialists in the `AGENTS.md` trigger table. Independent dispatches go out together. Each one gets the full task, the paths and the constraint; it starts with zero context. Load `iterative-retrieval` first when the dispatch is broad or vague.
 4. **Implement** — the work that remains, as the smallest diff, in the repo's existing style. Load the skill that matches the procedure before writing.
 5. **Verify** — run what the change touches: the tests, the build, the command that was failing. Report the output, never a claim about it.
+6. **Deliver** — the work is not done until GitHub has it. `git status`, commit what changed (one commit per logical change, message per `git-workflow-and-versioning`), `git push`, then confirm `git status -sb` no longer reads `ahead`. If there is no remote, no `user.email`, or the push is rejected, say which one and give the single command that fixes it. Never leave a repo dirty without saying so.
 
 Rules:
 
