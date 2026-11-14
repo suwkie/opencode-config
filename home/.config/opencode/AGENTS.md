@@ -31,17 +31,14 @@ If none match, don't load one. Never load two overlapping procedures for the sam
 
 ## Subagents: delegate, don't inline
 
-Global agents, any repo. Dispatch them without being asked, the moment the trigger matches:
+Global, any repo. Dispatch on the trigger, without being asked:
 
-- Something fails and the cause is unknown → `debugger`
-- A change exists and needs checking → `reviewer`
-- The change touches auth, user input, files, secrets or URLs → `security-auditor`
-- The task changes what a person sees: layout, type, colour, motion, responsive → `designer`
-- Options or ideas are requested, or a decision is blocked → `brainstormer`
-- A slowdown is measured or suspected, or a performance requirement exists → `optimizer`
+- Fails, cause unknown → `debugger` · a change to check → `reviewer`
+- Auth, input, files, secrets or URLs touched → `security-auditor`
+- Changes what a person sees → `designer` · options asked → `brainstormer` · slowdown → `optimizer`
 - Broad search across many files → `explore`
 
-Once one has responded, act on its answer instead of re-deriving it inline.
+Act on the answer instead of re-deriving it inline.
 
 Work concerning `~/aria` (paths under it, or Aria named explicitly):
 
