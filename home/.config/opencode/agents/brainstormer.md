@@ -15,7 +15,13 @@ permissions:
     effect: deny
   # The one command it may run: bring the agent browser up when browse is offline.
   - action: shell
-    resource: "*helium-agent*"
+    resource: "/home/suwkie/.local/bin/helium-agent*"
+    effect: allow
+  - action: shell
+    resource: "~/.local/bin/helium-agent*"
+    effect: allow
+  - action: shell
+    resource: "helium-agent*"
     effect: allow
 ---
 
