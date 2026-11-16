@@ -18,6 +18,7 @@ cp -a "$HOME/.config/git/hooks/post-commit" home/.config/git/hooks/
 cp -a "$HOME/.config/systemd/user/git-autopush.service" home/.config/systemd/user/
 cp -a "$HOME/.config/systemd/user/git-autopush.timer" home/.config/systemd/user/
 cp -a "$HOME/.local/bin/git-autopush-all" home/.local/bin/
+cp -a "$HOME/.local/bin/websearch" home/.local/bin/
 
 git add -A
 git status --short | head -20

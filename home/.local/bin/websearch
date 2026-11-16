@@ -1,0 +1,59 @@
+#!/usr/bin/env python3
+"""DuckDuckGo search over the lite endpoint. No API key, stdlib only."""
+import sys, re, html, urllib.parse, urllib.request
+
+UA = "Mozilla/5.0 (X11; Linux x86_64)"
+TAG = re.compile(r"<[^>]+>")
+
+
+def fetch(query, count):
+    url = "https://lite.duckduckgo.com/lite/?" + urllib.parse.urlencode({"q": query})
+    req = urllib.request.Request(url, headers={"User-Agent": UA})
+    with urllib.request.urlopen(req, timeout=20) as r:
+        page = r.read().decode("utf-8", "replace")
+
+    out = []
+    for m in re.finditer(r"<a rel=\"nofollow\" href=\"([^\"]+)\"[^>]*class='result-link'>(.*?)</a>", page, re.S):
+        href, title = m.group(1), html.unescape(TAG.sub("", m.group(2))).strip()
+        q = urllib.parse.parse_qs(urllib.parse.urlparse(href).query)
+        link = q.get("uddg", [href])[0]
+        link = urllib.parse.unquote(link)
+        if link.startswith("//"):
+            link = "https:" + link
+        snip = ""
+        tail = page[m.end():m.end() + 2000]
+        s = re.search(r"<td class='result-snippet'>(.*?)</td>", tail, re.S)
+        if s:
+            snip = re.sub(r"\s+", " ", html.unescape(TAG.sub("", s.group(1)))).strip()
+        out.append((title, link, snip))
+        if len(out) >= count:
+            break
+    return out
+
+
+def main():
+    args = sys.argv[1:]
+    count = 8
+    if args and args[0] == "-n":
+        count, args = int(args[1]), args[2:]
+    query = " ".join(args).strip()
+    if not query:
+        print("usage: websearch [-n N] <query>", file=sys.stderr)
+        return 2
+    try:
+        results = fetch(query, count)
+    except Exception as e:
+        print("search failed: %s" % e, file=sys.stderr)
+        return 1
+    if not results:
+        print("no results")
+        return 0
+    for i, (title, link, snip) in enumerate(results, 1):
+        print("%d. %s\n   %s" % (i, title, link))
+        if snip:
+            print("   %s" % snip[:320])
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
