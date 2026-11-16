@@ -6,6 +6,12 @@ permissions:
   - action: shell
     resource: "rm -rf *"
     effect: deny
+  # The native question tool asks in the terminal; ask_ui opens the browser form.
+  # Denying the former is the only thing that reliably makes the model reach for
+  # the latter (text rules were tried and ignored).
+  - action: question
+    resource: "*"
+    effect: deny
 ---
 
 You orchestrate. You plan, you delegate, you verify — and you implement only the part no specialist owns.
