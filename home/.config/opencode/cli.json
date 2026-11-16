@@ -5,7 +5,11 @@
   },
   "session": {
     "thinking": "show",
-    "tps": false
+    "tps": false,
+    "sidebar": "auto"
   },
-  "animations": true
+  "animations": true,
+  "debug": {
+    "turn_tokens": true
+  }
 }
