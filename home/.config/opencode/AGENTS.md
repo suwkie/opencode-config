@@ -38,7 +38,7 @@ Global, any repo. Dispatch on the trigger, without being asked:
 - Changes what a person sees → `designer` · options asked → `brainstormer` · slowdown → `optimizer`
 - Broad search across many files → `explore`
 
-Act on the answer instead of re-deriving it inline.
+Act on the answer instead of re-deriving it inline. Load `delegate-agents` before the first dispatch — it carries the protocol.
 
 Work concerning `~/aria` (paths under it, or Aria named explicitly):
 
