@@ -4,8 +4,7 @@
     "opencode-mem@latest",
     "@dietrichgebert/ponytail",
     "@cortexkit/opencode-magic-context",
-    "opencode-auto-resume",
-    "opencode-pty/v2"
+    "opencode-auto-resume"
   ],
   "mcp": {
     "cloudflare": {
