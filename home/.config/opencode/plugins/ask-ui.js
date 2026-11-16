@@ -8,12 +8,43 @@
 // OpenCode 2 only: it registers the tool through ctx.tool.transform, which V1
 // does not expose.
 import { createServer } from "http";
-import { appendFileSync } from "fs";
+import { appendFileSync, mkdirSync, existsSync } from "fs";
+import { homedir } from "os";
+import { join } from "path";
 import { spawn } from "child_process";
 import { randomBytes } from "crypto";
 
 const TYPES = new Set(["pick_one", "pick_many", "confirm", "slider", "text"]);
 const DEFAULT_WAIT_MS = 10 * 60 * 1000;
+
+// Monthly note per vault convention: Projects/ask-ui/YYYY-MM.md.
+const ARCHIVE_DIR = join(homedir(), "Документы", "Obsidian Vault", "Projects", "ask-ui");
+
+const showAnswer = (v) => {
+  if (Array.isArray(v)) return v.length ? v.join(", ") : "(none)";
+  if (v === true) return "yes";
+  if (v === false) return "no";
+  if (v === null || v === undefined || v === "") return "(skipped)";
+  return String(v);
+};
+
+// One block per form. Failure here must never cost the answers, so it is
+// swallowed: the submit still returns ok.
+export function archiveForm(title, questions, answers, when = new Date()) {
+  try {
+    mkdirSync(ARCHIVE_DIR, { recursive: true });
+    const pad = (n) => String(n).padStart(2, "0");
+    const month = `${when.getFullYear()}-${pad(when.getMonth() + 1)}`;
+    const file = join(ARCHIVE_DIR, `${month}.md`);
+    const stamp = `${month}-${pad(when.getDate())} ${pad(when.getHours())}:${pad(when.getMinutes())}`;
+    const lines = questions.map((q) => `- ${q.label} → ${showAnswer(answers?.[q.id])}`);
+    const block = `${existsSync(file) ? "" : `# Ask UI · ${month}\n`}\n## ${stamp} · ${title}\n\n${lines.join("\n")}\n`;
+    appendFileSync(file, block);
+    return file;
+  } catch {
+    return null;
+  }
+}
 
 const PAGE = (questions, token, title) => `<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
@@ -153,8 +184,11 @@ document.getElementById("go").onclick = async (ev) => {
     method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(answers)
   });
   document.querySelector("main").innerHTML = r.ok
-    ? '<div class="done"><b><span class="tick">&#10003;</span> answers sent</b>You can close this tab.</div>'
+    ? '<div class="done"><b><span class="tick">&#10003;</span> answers sent</b>closing this tab…</div>'
     : '<div class="done"><b>this form expired</b>Ask the agent again.</div>';
+  // Browsers only let a script close a window it opened; when refused the
+  // message above stays and the tab is closed by hand.
+  if (r.ok) setTimeout(() => window.close(), 1000);
 };
 </script></body></html>`;
 
@@ -206,6 +240,7 @@ export function askForm(questions, { title = "Agent question", waitMs = DEFAULT_
           res.writeHead(200, { "content-type": "application/json" }).end('{"ok":true}');
           try {
             const answers = JSON.parse(body || "{}");
+            archiveForm(title, qs, answers);
             finish(resolve, { answers, questions: qs, url: page });
           } catch {
             finish(reject, new Error("ask_ui received malformed JSON"));
