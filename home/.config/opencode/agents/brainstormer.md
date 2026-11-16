@@ -44,7 +44,15 @@ Options are worth more when they point at something real. Before writing any, sp
 ~/.local/bin/helium-agent
 ```
 
-Wait three seconds, then retry `browse` once. If it still reports offline, use the websearch fallback and say so — never retry twice, and never start a browser in the middle of someone's screen without the browse call having failed first. Close your browse session (`session_reset`) when you are done, so tabs do not pile up on the user's screen.
+Wait three seconds, then retry `browse` once. If it still reports offline, use the websearch fallback and say so — never retry twice, and never start a browser in the middle of someone's screen without the browse call having failed first.
+
+**Closing it.** If you started the browser yourself in this run, close it when the browsing is done and before you answer:
+
+```bash
+~/.local/bin/helium-agent stop
+```
+
+That refuses when the browser was opened by the user rather than by you, so it is always safe to run. Close your browse session first (`session_reset`), then stop the browser — never the other way round.
 
 Extract, for each idea you bring back: `owner/repo` · stars · last push · one line on their approach. Cite it in the option — "как в `foo/bar` (★1.2k, 2026-10): файл на запись" — so the parent can check you.
 
