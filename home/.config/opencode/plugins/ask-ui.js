@@ -18,32 +18,58 @@ const DEFAULT_WAIT_MS = 10 * 60 * 1000;
 const PAGE = (questions, token, title) => `<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <title>${title}</title>
 <style>
-  :root { color-scheme: dark; }
-  * { box-sizing: border-box; }
-  body { margin:0; padding:32px 20px 80px; font:15px/1.5 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
-         background:#111318; color:#e6e8ee; }
-  main { max-width:720px; margin:0 auto; }
-  h1 { font-size:19px; font-weight:600; margin:0 0 4px; }
-  .sub { color:#8b93a7; font-size:13px; margin-bottom:28px; }
-  .q { background:#181b22; border:1px solid #232734; border-radius:10px; padding:16px 18px; margin-bottom:14px; }
-  .q > label.ql { display:block; font-weight:550; margin-bottom:10px; }
-  .note { color:#8b93a7; font-size:12.5px; margin:4px 0 0; }
-  .opt { display:flex; gap:10px; align-items:flex-start; padding:7px 9px; border-radius:7px; cursor:pointer; }
-  .opt:hover { background:#1e2230; }
-  .opt input { margin-top:3px; accent-color:#6ea8fe; }
-  .opt b { font-weight:550; }
-  .opt span { display:block; color:#8b93a7; font-size:12.5px; }
-  input[type=text] { width:100%; padding:9px 11px; border-radius:7px; border:1px solid #2b303f;
-                     background:#0e1015; color:inherit; font:inherit; }
-  input[type=range] { width:100%; accent-color:#6ea8fe; }
-  .val { float:right; font-variant-numeric:tabular-nums; color:#9aa3b8; font-weight:500; }
-  button { position:fixed; left:50%; transform:translateX(-50%); bottom:20px; padding:11px 26px;
-           border:0; border-radius:9px; background:#3d7bfd; color:#fff; font:inherit; font-weight:600;
-           cursor:pointer; box-shadow:0 6px 24px #0008; }
-  button:disabled { opacity:.5; cursor:default; }
-  .done { padding:24px; text-align:center; color:#8b93a7; }
+  :root {
+    --background: #ffffff;
+    --surface: #ffffff;
+    --surface-elevated: #f8f9fa;
+    --surface-hover: #f1f3f4;
+    --foreground: #000000;
+    --foreground-muted: #333333;
+    --foreground-subtle: #666666;
+    --border: #000000;
+    --border-subtle: #cccccc;
+    --accent-success: #00aa00;
+  }
+  *, *:before, *:after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; background: var(--background); color: var(--foreground);
+    font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 14px; line-height: 1.5; letter-spacing: -0.02em; }
+  body { position: relative; }
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 1;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.15'/%3E%3C/svg%3E");
+    background-size: 180px 180px;
+  }
+  main { position: relative; z-index: 2; max-width: 640px; margin: 0 auto; padding: 2rem 1.5rem 7rem; }
+  h1 { font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; font-size: 1.1rem; }
+  .sub { color: var(--foreground-subtle); font-size: 0.8rem; margin: 0.5rem 0 2rem; }
+  .q { background: var(--surface); border: 1px solid var(--border); padding: 1.25rem 1.5rem; margin-bottom: 0.75rem; }
+  .q .idx { float: right; color: var(--foreground-subtle); font-size: 0.75rem; }
+  .q > label.ql { display: block; font-weight: 600; margin-bottom: 0.9rem; padding-right: 2rem; }
+  .note { color: var(--foreground-subtle); font-size: 0.75rem; margin: -0.6rem 0 0.8rem; }
+  .opt { display: flex; gap: 0.6rem; align-items: flex-start; padding: 0.5rem 0.6rem;
+    border: 1px solid transparent; cursor: pointer; }
+  .opt:hover { background: var(--surface-hover); border-color: var(--border-subtle); }
+  .opt input { margin-top: 0.2rem; accent-color: #000; }
+  .opt b { font-weight: 600; }
+  .opt span { display: block; color: var(--foreground-subtle); font-size: 0.75rem; }
+  input[type=text] { width: 100%; padding: 0.6rem 0.7rem; border: 1px solid var(--border);
+    background: var(--surface); color: inherit; font: inherit; }
+  input[type=text]:focus { outline: 2px solid #000; outline-offset: -2px; }
+  input[type=range] { width: 100%; accent-color: #000; }
+  .val { float: right; font-weight: 600; font-variant-numeric: tabular-nums; }
+  button { position: fixed; left: 50%; transform: translateX(-50%); bottom: 1.5rem;
+    padding: 0.7rem 2rem; border: 1px solid #000; background: #000; color: #fff;
+    font: inherit; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer; }
+  button:hover { background: #fff; color: #000; }
+  button:disabled { opacity: 0.4; cursor: default; }
+  .done { border: 1px solid var(--border); padding: 2rem; text-align: center; }
+  .done b { display: block; margin-bottom: 0.5rem; }
+  .done .tick { color: var(--accent-success); }
 </style></head><body><main>
 <h1>${title}</h1>
 <div class="sub">${questions.length} question${questions.length === 1 ? "" : "s"} &middot; answers go straight back to the agent</div>
@@ -54,9 +80,13 @@ const PAGE = (questions, token, title) => `<!doctype html>
 const QS = ${JSON.stringify(questions)};
 const TOKEN = ${JSON.stringify(token)};
 const f = document.getElementById("f");
-for (const q of QS) {
+for (const [qi, q] of QS.entries()) {
   const box = document.createElement("div");
   box.className = "q";
+  const idx = document.createElement("span");
+  idx.className = "idx";
+  idx.textContent = String(qi + 1).padStart(2, "0") + " / " + String(QS.length).padStart(2, "0");
+  box.appendChild(idx);
   const lab = document.createElement("label");
   lab.className = "ql";
   lab.textContent = q.label;
@@ -123,8 +153,8 @@ document.getElementById("go").onclick = async (ev) => {
     method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(answers)
   });
   document.querySelector("main").innerHTML = r.ok
-    ? '<div class="done">Answers sent. You can close this tab.</div>'
-    : '<div class="done">This form already expired. Ask the agent again.</div>';
+    ? '<div class="done"><b><span class="tick">&#10003;</span> answers sent</b>You can close this tab.</div>'
+    : '<div class="done"><b>this form expired</b>Ask the agent again.</div>';
 };
 </script></body></html>`;
 
