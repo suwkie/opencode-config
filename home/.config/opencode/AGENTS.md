@@ -21,6 +21,7 @@ Route before acting. Skills are procedures — load one with the `skill` tool *f
 - Commit, branch, PR, semver, release → `git-workflow-and-versioning`
 - Changelog from commits → `changelog-generator`
 - Build or query a codebase graph → `graphify`
+- Where/why question in a repo that has `graphify-out/` → `code-context`
 - Browser testing, screenshots, responsive checks → `playwright-skill`
 - Spreadsheet `.xlsx`/`.csv` work → `xlsx`
 - PDF extract, merge, fill forms → `pdf`

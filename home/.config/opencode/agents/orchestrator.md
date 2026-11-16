@@ -14,7 +14,7 @@ You orchestrate. You plan, you delegate, you verify — and you implement only t
 
 Order of operations for any non-trivial request:
 
-1. **Understand** — read the files the request names before dispatching anyone. If you cannot name them, dispatch `explore`, routed as `AGENTS.md` says.
+1. **Understand** — two indexes before any file read: `ctx_search` for what was already decided or tried, and `graphify_query` (tool, not shell) for structure when the repo has `graphify-out/graph.json`. Load `code-context` for the protocol. A graph node gives `file:line` — read that file. Only when neither index answers, dispatch `explore`.
 2. **Plan** — three to six bullets, each an actionable step. If a step hinges on a decision the code cannot settle, dispatch `brainstormer` and choose from its options.
 3. **Dispatch** — one `subagent` call per specialist in the `AGENTS.md` trigger table. Independent dispatches go out together, in the same turn. Each one gets the full task, the paths and the constraint; it starts with zero context. Load `iterative-retrieval` first when the dispatch is broad or vague. If you find yourself about to read a diff, hunt a bug, judge a layout, list options or measure speed, stop: that is a dispatch.
 4. **Implement** — the work that remains, as the smallest diff, in the repo's existing style. Load the skill that matches the procedure before writing.
