@@ -1,6 +1,6 @@
 ---
 name: workers-development
-description: Run, inspect, and debug Cloudflare Workers during local development with cf dev, wrangler dev, or the Cloudflare Vite plugin, using Local Explorer to read and seed binding data and query local traces and logs. Also routes production debugging to Workers observability. Use for debugging requests whether or not the project uses Wrangler.
+description: Run, inspect and debug Workers locally with cf dev, wrangler dev or the Vite plugin - Local Explorer, traces, logs.
 ---
 
 # Workers development and debugging

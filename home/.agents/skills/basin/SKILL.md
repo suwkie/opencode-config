@@ -1,6 +1,6 @@
 ---
 name: basin
-description: Build and troubleshoot Cloudflare Basin analytics workflows with Basin Pipelines, Basin Catalog, and Basin SQL. Use for streaming data into R2 Iceberg tables, managing catalogs, or querying those tables; also use for requests using the former Data Platform, Pipelines, R2 Data Catalog, or R2 SQL names.
+description: Cloudflare Basin analytics - Pipelines, Catalog, SQL over R2 Iceberg. Also answers for Data Platform, R2 Data Catalog, R2 SQL.
 ---
 
 # Cloudflare Basin

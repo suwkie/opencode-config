@@ -1,6 +1,6 @@
 ---
 name: code-security-auditor
-description: Perform pre-execution security audits of untrusted codebases through static analysis. Use when analyzing a codebase for potential malicious behavior, supply chain risks, or security vulnerabilities before local execution. Triggered by requests like "analyze this project for security risks", "audit this code before running", "check if this codebase is safe", or similar security review requests.
+description: Static security audit of an untrusted codebase before running it - malicious behaviour, supply chain, vulnerabilities.
 ---
 
 # Code Security Auditor

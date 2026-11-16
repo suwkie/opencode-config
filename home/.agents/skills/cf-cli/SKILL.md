@@ -1,6 +1,6 @@
 ---
 name: cf-cli
-description: Cloudflare's official cf CLI (beta) for the public Cloudflare API and Workers projects. Use for finding and running Cloudflare commands from the terminal — sign-in and profiles, cf cli search, cf schema, cf deploy/dev/build, resource commands for DNS, zones, D1, KV, and R2 — and for choosing between cf and Wrangler in a project.
+description: Cloudflare cf CLI - sign-in, search, schema, deploy/dev/build, DNS, zones, D1, KV, R2; and when to use cf vs Wrangler.
 ---
 
 # Cloudflare CLI (`cf`)

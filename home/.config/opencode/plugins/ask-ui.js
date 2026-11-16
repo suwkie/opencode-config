@@ -8,6 +8,7 @@
 // OpenCode 2 only: it registers the tool through ctx.tool.transform, which V1
 // does not expose.
 import { createServer } from "http";
+import { appendFileSync } from "fs";
 import { spawn } from "child_process";
 import { randomBytes } from "crypto";
 
@@ -189,6 +190,8 @@ export function askForm(questions, { title = "Agent question", waitMs = DEFAULT_
     let page = "";
     server.listen(0, "127.0.0.1", () => {
       page = `http://127.0.0.1:${server.address().port}/?t=${token}`;
+      // So the tab can still be found when the browser did not open.
+      try { appendFileSync("/tmp/opencode/ask-ui-url.txt", page + "\n"); } catch {}
       if (onReady) onReady(page);
       if (openBrowser) spawn("xdg-open", [page], { stdio: "ignore", detached: true }).on("error", () => {}).unref();
     });
