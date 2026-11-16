@@ -4,7 +4,8 @@
     "opencode-mem@latest",
     "@dietrichgebert/ponytail",
     "@cortexkit/opencode-magic-context",
-    "opencode-auto-resume"
+    "opencode-auto-resume",
+    "@slkiser/opencode-quota"
   ],
   "mcp": {
     "cloudflare": {
@@ -28,5 +29,9 @@
       }
     }
   },
-  "default_agent": "orchestrator"
+  "default_agent": "orchestrator",
+  "provider": {
+    "opencode-go": {},
+    "opencode": {}
+  }
 }
