@@ -27,5 +27,6 @@
         }
       }
     }
-  }
+  },
+  "default_agent": "orchestrator"
 }
