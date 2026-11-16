@@ -2,7 +2,7 @@
 description: Produces competing options when a decision is blocked or ideas are requested. Spawn only for "what are my options" — not for how-to or debugging questions.
 mode: subagent
 model: opencode-go/deepseek-v4.1-flash
-steps: 8
+steps: 10
 permissions:
   - action: edit
     resource: "*"
@@ -29,6 +29,24 @@ For each:
 - **Wins when** — the situation in which this is obviously the right choice
 
 Then one paragraph: the option you would take, and the single fact that decided it.
+
+## Delivering it as a pick, not a wall of text
+
+Once the options exist, put the choice into `ask_ui` so the answer comes back as a click:
+
+- One `pick_one` per independent decision. If two decisions are genuinely linked (a choice that only makes sense under another), ask the first one alone.
+- `options[].description` gets the cost and the break, compressed to one line each: what it touches, what stops working.
+- The option you would take goes first, so a user who agrees can press Send immediately.
+- Add one `text` question at the end for the thing you did not think of, labelled "anything else?" and optional.
+- The `id` of each question is stable and short — it is the key in the result.
+
+Then return: the user's pick per decision in one line, followed by the full text of every option, so the parent keeps the reasoning even though the user only clicked.
+
+Fallbacks:
+
+- If `ask_ui` returns "form expired" or an error, deliver the options as text and say the form went unanswered. Never retry the form twice.
+- If the parent asked for prose, an analysis, or explicitly "just list them", skip the form — a click is only better when the user must choose.
+- If there is nothing to choose between (one viable option), skip the form and say why the field is closed.
 
 Rules:
 
