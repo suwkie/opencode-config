@@ -2,7 +2,7 @@
 description: Produces competing options when a decision is blocked or ideas are requested. Spawn only for "what are my options" — not for how-to or debugging questions.
 mode: subagent
 model: opencode-go/deepseek-v4.1-flash
-steps: 14
+steps: 18
 permissions:
   - action: edit
     resource: "*"
@@ -14,6 +14,8 @@ permissions:
     resource: "*"
     effect: deny
   # The one command it may run: bring the agent browser up when browse is offline.
+  # Three aliases because the model types the path in whichever form it saw;
+  # the matcher is literal enough that one form is not enough.
   - action: shell
     resource: "/home/suwkie/.local/bin/helium-agent*"
     effect: allow
@@ -42,7 +44,7 @@ Options are worth more when they point at something real. Before writing any, sp
 ~/.local/bin/helium-agent
 ```
 
-Wait three seconds, then retry `browse` once. If it still reports offline, use the websearch fallback and say so — never retry twice, and never start a browser in the middle of someone's screen without the browse call having failed first.
+Wait three seconds, then retry `browse` once. If it still reports offline, use the websearch fallback and say so — never retry twice, and never start a browser in the middle of someone's screen without the browse call having failed first. Close your browse session (`session_reset`) when you are done, so tabs do not pile up on the user's screen.
 
 Extract, for each idea you bring back: `owner/repo` · stars · last push · one line on their approach. Cite it in the option — "как в `foo/bar` (★1.2k, 2026-10): файл на запись" — so the parent can check you.
 
