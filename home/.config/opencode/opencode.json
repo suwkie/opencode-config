@@ -12,6 +12,20 @@
       "url": "https://mcp.cloudflare.com/mcp",
       "enabled": true,
       "oauth": {}
+    },
+    "servers": {
+      "browse": {
+        "type": "local",
+        "command": [
+          "browse",
+          "mcp"
+        ],
+        "cwd": "~",
+        "pool": true,
+        "environment": {
+          "OPENCODE_BROWSER_RUNTIME": "auto-update"
+        }
+      }
     }
   }
 }
