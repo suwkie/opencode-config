@@ -20,6 +20,10 @@ const DEFAULT_WAIT_MS = 10 * 60 * 1000;
 // Monthly note per vault convention: Projects/ask-ui/YYYY-MM.md.
 const ARCHIVE_DIR = join(homedir(), "Документы", "Obsidian Vault", "Projects", "ask-ui");
 
+// One form at a time. A model that misreads the return value retries the same
+// call, and two identical forms in the browser is worse than an error message.
+let openForm = null;
+
 const showAnswer = (v) => {
   if (Array.isArray(v)) return v.length ? v.join(", ") : "(none)";
   if (v === true) return "yes";
@@ -220,6 +224,7 @@ export function askForm(questions, { title = "Agent question", waitMs = DEFAULT_
       settled = true;
       clearTimeout(timer);
       server.close();
+      openForm = null;
       fn(value);
     };
 
@@ -271,7 +276,7 @@ export default {
       await draft.add({
         name: "ask_ui",
         description:
-          "Ask the user a set of questions in a local browser form: click instead of typing. Use when a decision needs several answers at once, or when free-text answers would be slow to type. Blocks until the user submits or the timeout passes.",
+          "Ask the user a set of questions in a local browser form: click instead of typing. Use when a decision needs several answers at once, or when free-text answers would be slow to type. Blocks until the user submits or the timeout passes. Returns the answers as one plain string — the result is already the text; there is no .output field to read.",
         input: {
           type: "object",
           properties: {
@@ -299,11 +304,16 @@ export default {
         },
         output: { type: "object", properties: { output: { type: "string" } }, required: ["output"] },
         execute: async (args) => {
+          if (openForm) {
+            return { output: `A form is already open in the browser: "${openForm}". Wait for it, or ask in chat — do not open a second one.` };
+          }
           const waitMs = Math.max(15, Math.min(3600, Number(args.wait_seconds) || 600)) * 1000;
           try {
+            openForm = args.title || "Agent question";
             const { answers, questions, url } = await askForm(args.questions, { title: args.title || "Agent question", waitMs });
             return { output: `Form answered at ${url}\n\n${format(questions, answers)}` };
           } catch (e) {
+            openForm = null;
             return { output: `ask_ui: ${e.message}\n\nAsk the questions in chat instead.` };
           }
         },

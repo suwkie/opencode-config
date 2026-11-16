@@ -39,7 +39,7 @@ export default {
       await draft.add({
         name: "graphify_query",
         description:
-          "Query the codebase knowledge graph: where a symbol lives, what calls it, what connects two subsystems, or the shortest path between two concepts. Faster and cheaper than grepping a repo that has graphify-out/. Returns nodes as `NODE name [src=path loc=L123]` — read that file:line instead of searching again.",
+          "Query the codebase knowledge graph: where a symbol lives, what calls it, what connects two subsystems, or the shortest path between two concepts. Faster and cheaper than grepping a repo that has graphify-out/. Returns nodes as `NODE name [src=path loc=L123]` — read that file:line instead of searching again. The result is already the text: there is no .output field.",
         input: {
           type: "object",
           properties: {
