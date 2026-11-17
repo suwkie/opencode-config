@@ -60,7 +60,7 @@ Run it **alone** — not `... ; sleep 3`, not chained with `echo`. A chain is ju
 ~/.local/bin/helium-agent stop
 ```
 
-That refuses when the browser was opened by the user rather than by you, so it is always safe to run. Close your browse session first (`session_reset`), then stop the browser — never the other way round.
+That refuses when the browser was opened by the user rather than by you, so it is always safe to run. Close the tabs you opened first (`tabs` with action `close`), then stop the browser — never the other way round.
 
 Extract, for each idea you bring back: `owner/repo` · stars · last push · one line on their approach. Cite it in the option — "как в `foo/bar` (★1.2k, 2026-10): файл на запись" — so the parent can check you.
 
