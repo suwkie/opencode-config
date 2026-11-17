@@ -15,7 +15,7 @@ const P = "(^|[;&|]\\s*)";
 const PATTERNS = [
   new RegExp(`${P}rm\\s+(-[a-zA-Z]*[rf][a-zA-Z]*\\s+)+(\\/\\s*$|\\/\\*|~(\\/\\S*)?|\\$HOME(\\/\\S*)?|\\.\\.(\\/|\\s|$))`),
   new RegExp(`${P}mkfs(\\.\\w+)?\\b`),
-  new RegExp(`${P}dd\\b[^\\n]*\\bof=\\/dev\\/`),
+  new RegExp(`${P}dd\\b[^\\n]*\\bof=\\/dev\\/(?!null\\b|zero\\b)`),
   new RegExp(`${P}git\\s+push\\b[^\\n]*\\s(-f|--force)\\b`),
   new RegExp(`${P}git\\s+reset\\s+--hard\\b[^\\n]*\\b(origin|HEAD~)`),
   new RegExp(`${P}git\\s+clean\\s+-[a-zA-Z]*[fd]`),
