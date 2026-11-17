@@ -9,8 +9,11 @@
 // unanchored match also fired on commands that merely *mention* the text in a
 // quoted argument, which is a false positive worth avoiding.
 const P = "(^|[;&|]\\s*)";
+// Blocks the root-like targets only: / , /* , ~ , ~/anything , $HOME/anything ,
+// .. — an absolute path under /tmp stays allowed, which is where agent scratch
+// dirs live.
 const PATTERNS = [
-  new RegExp(`${P}rm\\s+(-[a-zA-Z]*[rf][a-zA-Z]*\\s+)+(\\/|~|\\$HOME|\\.\\.)`),
+  new RegExp(`${P}rm\\s+(-[a-zA-Z]*[rf][a-zA-Z]*\\s+)+(\\/\\s*$|\\/\\*|~(\\/\\S*)?|\\$HOME(\\/\\S*)?|\\.\\.(\\/|\\s|$))`),
   new RegExp(`${P}mkfs(\\.\\w+)?\\b`),
   new RegExp(`${P}dd\\b[^\\n]*\\bof=\\/dev\\/`),
   new RegExp(`${P}git\\s+push\\b[^\\n]*\\s(-f|--force)\\b`),
