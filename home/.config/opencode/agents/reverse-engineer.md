@@ -2,7 +2,7 @@
 description: Reads an application's source and extracts the architecture worth copying — entry points, module hubs, boundaries, one end-to-end data flow, invariants and traps. Use when studying another codebase to build something like it, or when a repo is unfamiliar and large.
 mode: subagent
 model: opencode-go/deepseek-v4.1-flash
-steps: 24
+steps: 30
 permissions:
   - action: edit
     resource: "*"
