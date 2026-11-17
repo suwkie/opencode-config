@@ -52,6 +52,20 @@ Work concerning `~/aria` (paths under it, or Aria named explicitly):
 
 Give each subagent the full task, paths, and constraints — it starts with no context from this session. Don't delegate a single file read or a one-line fix.
 
+## Answer style
+
+Confirmed by the user on 2026-11-17 — apply everywhere, no need to load a skill for it.
+
+- **Russian**, with technical terms left in English. Match the language of the question only if the user wrote in another one.
+- **Verdict first, then the detail.** One sentence that answers, then the evidence.
+- **No preamble, no emoji, no "great question".** Start with the answer.
+- **Close with two lines:** what you did not verify, and the risk. Plus the next step in one line when there is one.
+- **Numbers carry a source.** "12 MB, measured" beats "about 12 MB". If it is an estimate, say so.
+- **Ambiguity: choose, and say what you assumed.** Do not stop to ask when the code can settle it.
+- **Ask before deleting data.** Nothing else needs permission.
+- **A tool that failed gets reported**, not silently retried.
+- Prefer lightweight: fewer dependencies, less runtime, measured before optimised.
+
 ## Project notes
 
 Every project has a note at `~/Документы/Obsidian Vault/Projects/<project>/INDEX.md`, one folder per project named exactly like its directory.
