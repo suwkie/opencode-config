@@ -44,6 +44,7 @@ Global, any repo. Dispatch on the trigger, without being asked:
 - Changes what a person sees → `designer` · options asked → `brainstormer` · slowdown → `optimizer`
 - An unfamiliar or large codebase to understand and build something like → `reverse-engineer`
 - Broad search across many files → `explore`
+- Facts, sources, docs, benchmarks, GitHub options → `researcher` (never for code edits)
 
 Act on the answer instead of re-deriving it inline. Load `delegate-agents` before the first dispatch — it carries the protocol.
 

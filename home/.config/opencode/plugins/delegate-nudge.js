@@ -21,9 +21,9 @@ const GIT_COMMIT = /^(?:\s*cd\s+[^;&|]+\s*&&\s*)?(?:git\s+add\s+[^;&|]+\s*&&\s*)
 
 const SPECIALISTS = {
   orchestrator:
-    "reviewer (a change to judge) · debugger (fails, cause unknown) · security-auditor (auth, input, secrets, URLs) · designer (what a person sees) · optimizer (a measured slowdown) · explore (where something lives) · reverse-engineer (how another app is built)",
+    "reviewer (a change to judge) · debugger (fails, cause unknown) · security-auditor (auth, input, secrets, URLs) · designer (what a person sees) · optimizer (a measured slowdown) · explore (where something lives) · reverse-engineer (how another app is built) · researcher (facts with sources)",
   build:
-    "reviewer (a change to judge) · debugger (fails, cause unknown) · security-auditor (auth, input, secrets, URLs) · designer (what a person sees) · explore (where something lives)",
+    "reviewer (a change to judge) · debugger (fails, cause unknown) · security-auditor (auth, input, secrets, URLs) · designer (what a person sees) · explore (where something lives) · researcher (facts with sources)",
   plan: "explore (where something lives) · reviewer (a change to judge)",
 };
 
