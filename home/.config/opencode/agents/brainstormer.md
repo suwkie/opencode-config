@@ -2,7 +2,7 @@
 description: Produces competing options when a decision is blocked or ideas are requested. Spawn only for "what are my options" — not for how-to or debugging questions.
 mode: subagent
 model: opencode-go/claude-haiku-5-5
-steps: 18
+steps: 34
 permissions:
   - action: edit
     resource: "*"
