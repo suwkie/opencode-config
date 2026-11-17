@@ -46,15 +46,26 @@ Take the four or five that fit; never all of them.
 
 ## The brief
 
-```
-Goal:        <one sentence>
-Constraints: <bullets, max 4>
-Done when:   <bullets, each runnable or checkable>
-Non-goals:   <bullets, max 3>
-Assumptions: <bullets, what you decided>
-```
+The output is an **implementation-ready spec**, not a summary. Ten sections, in this order:
 
-If a field is genuinely empty, write `—`. An empty field is information; an invented one is a lie.
+| Section | What goes in it |
+|---|---|
+| Goal | one sentence, the change in the user's words |
+| Context | why this exists, what was tried, decisions already made |
+| Current state | paths, sizes, versions, what is actually broken right now |
+| What to build | numbered requirements, each concrete enough to implement without a follow-up question |
+| Constraints | stack, files, performance, permissions, "no dependencies" |
+| Done when | testable checks, not adjectives |
+| Verification | commands that prove it, **including the failure case** |
+| Non-goals | what this deliberately does not touch |
+| Assumptions | what you decided without asking |
+| What to return | what the implementing agent reports back |
+
+Fill it with `brief` (plugin `brief.js`), which renders and archives it. An empty section is written as `—`; inventing content for one is a lie.
+
+**The test of a good spec:** an agent with no access to this conversation can start from the Context and Current state sections and still make the right choices. If it would have to ask something, the section is thin.
+
+Where the facts come from: paths and sizes from `ls`/`stat`/`du`, versions from `--version`, current behaviour from running it. Never from memory of what a project "usually" has.
 
 ## Failure modes
 
