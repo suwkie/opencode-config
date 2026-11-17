@@ -29,6 +29,7 @@ Route before acting. Skills are procedures — load one with the `skill` tool *f
 - Building an MCP server → `mcp-builder`
 - Answer needs numbers, a ranking, or a decision between options → `deep-research`
 - Three or more decisions needed before work can start → `ask-ui`
+- A request names an action but not its shape → `clarify-request`
 - About to assert how an external API, flag, config key or version behaves → `source-driven-development`
 - About to dispatch a subagent with a broad or vague question → `iterative-retrieval`
 
