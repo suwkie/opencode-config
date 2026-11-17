@@ -18,6 +18,7 @@ A request like "сделай красиво", "почини это", "добав
 - The code or the repo can settle the question — read first, ask never.
 - One file, one obvious edit.
 - You already started and only need one detail: ask that one thing in chat, not a form.
+- The user is testing the flow itself: then the prompt is the whole answer, and doing the work is the failure.
 
 ## Procedure
 
@@ -29,7 +30,7 @@ A request like "сделай красиво", "почини это", "добав
    - **Done when** — testable checks, not adjectives.
    - **Non-goals** — what this deliberately does not touch.
    - **Assumptions** — what you decided without asking, so it can be corrected cheaply.
-4. **Restate in 3–5 lines** to the user, then start. Do not ask again for anything already in the brief.
+4. **Restate in 3–5 lines and stop.** The output is a prompt another agent (or this one, next turn) will follow — not a licence to start. Work begins only when the user says so.
 
 ## Question bank
 

@@ -1,5 +1,5 @@
 ---
-description: Interview me about a vague request, write the brief, then do the work
+description: Interview me about a vague request and hand back a finished prompt, without doing the work
 agent: orchestrator
 ---
 
@@ -16,6 +16,8 @@ Steps, in order:
 3. Open **one** `ask_ui` form with at most six questions from the skill's question bank. Every option states its cost, not just its name.
 4. Gather the facts the spec needs before writing it — paths, sizes, versions, current behaviour, run them rather than recall them.
 5. Write the full spec with the `brief` tool: goal, context, current state, numbered requirements, constraints, done-when, verification, non-goals, assumptions, what to return. All ten sections; empty ones as `—`.
-6. Restate it in 3–5 lines, then start the work without asking again.
+6. Restate it in 3–5 lines and **stop**. The deliverable is the prompt itself.
 
-If the request contains «только бриф» (or "brief only"), stop after step 5 and do not begin the work.
+Begin the work only when the request says «делай» (or "run it"). Never start because the prompt looks ready.
+
+«только бриф» means even shorter: skip steps 2–3, write the spec from what is already known.
