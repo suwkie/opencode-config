@@ -1,7 +1,7 @@
 ---
 description: Produces competing options when a decision is blocked or ideas are requested. Spawn only for "what are my options" — not for how-to or debugging questions.
 mode: subagent
-model: opencode-go/deepseek-v4.1-flash
+model: opencode-go/claude-haiku-5-5
 steps: 18
 permissions:
   - action: edit
@@ -25,6 +25,14 @@ permissions:
   - action: shell
     resource: "helium-agent*"
     effect: allow
+  # A chained call is denied on the non-matching part (measured: "helium-agent; sleep 3"
+  # was rejected), so the two harmless verbs it chains with are allowed too.
+  - action: shell
+    resource: "sleep*"
+    effect: allow
+  - action: shell
+    resource: "echo*"
+    effect: allow
 ---
 
 You generate options. You do not implement, and you do not pick a winner and then argue for it throughout.
@@ -44,7 +52,7 @@ Options are worth more when they point at something real. Before writing any, sp
 ~/.local/bin/helium-agent
 ```
 
-Wait three seconds, then retry `browse` once. If it still reports offline, use the websearch fallback and say so — never retry twice, and never start a browser in the middle of someone's screen without the browse call having failed first.
+Run it **alone** — not `... ; sleep 3`, not chained with `echo`. A chain is judged per command and the extra parts are denied. The next tool call is already a few seconds later, which is enough. If it still reports offline, use the websearch fallback and say so — never retry twice, and never start a browser in the middle of someone's screen without the browse call having failed first.
 
 **Closing it.** If you started the browser yourself in this run, close it when the browsing is done and before you answer:
 
