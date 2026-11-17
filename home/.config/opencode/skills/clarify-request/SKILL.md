@@ -47,26 +47,42 @@ Take the four or five that fit; never all of them.
 
 ## The brief
 
-The output is an **implementation-ready spec**, not a summary. Ten sections, in this order:
+The output is an **implementation-ready spec**: sixteen sections, because every implicit one sends the next agent back with a question.
 
 | Section | What goes in it |
 |---|---|
 | Goal | one sentence, the change in the user's words |
-| Context | why this exists, what was tried, decisions already made |
-| Current state | paths, sizes, versions, what is actually broken right now |
-| What to build | numbered requirements, each concrete enough to implement without a follow-up question |
+| Background | why this exists, what was tried, what breaks today |
+| Current state | paths, sizes, versions, measured behaviour |
+| Files and areas | each path this touches, with what lives there |
+| What to build | numbered requirements, each implementable without a follow-up question |
+| Edge cases | empty, huge, concurrent, unicode, permissions, interrupted runs |
+| Order of work | milestones, each independently verifiable |
 | Constraints | stack, files, performance, permissions, "no dependencies" |
 | Done when | testable checks, not adjectives |
 | Verification | commands that prove it, **including the failure case** |
+| Risks | what can go wrong and how it would be noticed |
 | Non-goals | what this deliberately does not touch |
 | Assumptions | what you decided without asking |
+| Open questions | what is genuinely unknown, and who answers it |
+| References | files, docs, repos, prior art |
 | What to return | what the implementing agent reports back |
 
-Fill it with `brief` (plugin `brief.js`), which renders and archives it. An empty section is written as `—`; inventing content for one is a lie.
+Fill it with `brief` (plugin `brief.js`), which renders, counts and archives it. An empty section is written as `—`; inventing content is a lie, and `—` also tells the reader what to watch.
 
-**The test of a good spec:** an agent with no access to this conversation can start from the Context and Current state sections and still make the right choices. If it would have to ask something, the section is thin.
+**Three tests of a good spec:**
+
+1. An agent with no access to this conversation can start from Background and Current state and still choose correctly. If it would have to ask, that section is thin.
+2. Every requirement can be turned into a check in Verification. A requirement nobody can check is a wish.
+3. Every risk names how it would be noticed, not just that it exists.
 
 Where the facts come from: paths and sizes from `ls`/`stat`/`du`, versions from `--version`, current behaviour from running it. Never from memory of what a project "usually" has.
+
+## How many questions
+
+- **Ordinary request:** 4–6 questions, one form.
+- **Large or expensive request** (redesign, rewrite, a subsystem): up to **ten** questions, still one form. Two forms only if the first round changed what should be asked — say so before opening the second.
+- Every question earns its place by changing a *section* of the spec. If no section changes, drop the question.
 
 ## Failure modes
 
