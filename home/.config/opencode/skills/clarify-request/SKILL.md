@@ -30,7 +30,8 @@ A request like "сделай красиво", "почини это", "добав
    - **Done when** — testable checks, not adjectives.
    - **Non-goals** — what this deliberately does not touch.
    - **Assumptions** — what you decided without asking, so it can be corrected cheaply.
-4. **Restate in 3–5 lines and stop.** The output is a prompt another agent (or this one, next turn) will follow — not a licence to start. Work begins only when the user says so.
+4. **If the form result looks empty or null:** you probably read `.output` on it. The call resolves to the answer text itself. If it truly came back empty, read the last block of `~/Документы/Obsidian Vault/Projects/ask-ui/YYYY-MM.md` — every submitted form is archived there — and only then ask again, in chat, once.
+5. **Restate in 3–5 lines and stop.** The output is a prompt another agent (or this one, next turn) will follow — not a licence to start. Work begins only when the user says so.
 
 ## Question bank
 

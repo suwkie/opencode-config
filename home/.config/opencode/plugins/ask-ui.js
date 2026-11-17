@@ -276,7 +276,7 @@ export default {
       await draft.add({
         name: "ask_ui",
         description:
-          "Ask the user a set of questions in a local browser form: click instead of typing. Use when a decision needs several answers at once, or when free-text answers would be slow to type. Blocks until the user submits or the timeout passes. Returns the answers as one plain string — the result is already the text; there is no .output field to read.",
+          "Ask the user a set of questions in a local browser form: click instead of typing. Use when a decision needs several answers at once, or when free-text answers would be slow to type. Blocks until the user submits or the timeout passes. The call RESOLVES TO THE ANSWER TEXT itself: never read .output or .result on it, that is why it looks null. Every submitted form is also archived in ~/Документы/Obsidian Vault/Projects/ask-ui/YYYY-MM.md — if the answer text looks empty, read the last block there before re-asking.",
         input: {
           type: "object",
           properties: {
