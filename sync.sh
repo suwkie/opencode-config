@@ -19,6 +19,8 @@ cp -a "$HOME/.config/systemd/user/git-autopush.service" home/.config/systemd/use
 cp -a "$HOME/.config/systemd/user/git-autopush.timer" home/.config/systemd/user/
 cp -a "$HOME/.local/bin/git-autopush-all" home/.local/bin/
 cp -a "$HOME/.local/bin/websearch" home/.local/bin/
+cp -a "$HOME/.local/bin/helium-agent" home/.local/bin/
+cp -a "$HOME/.local/bin/obsidian-vault" home/.local/bin/
 
 git add -A
 git status --short | head -20

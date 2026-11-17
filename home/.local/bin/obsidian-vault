@@ -1,0 +1,5 @@
+#!/bin/sh
+# Launch Obsidian (AppImage, no libfuse2 here) on the notes vault.
+set -eu
+exec "$HOME/.local/opt/obsidian/Obsidian.AppImage" --appimage-extract-and-run \
+  --disable-gpu "$@" >/dev/null 2>&1

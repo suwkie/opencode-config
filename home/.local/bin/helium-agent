@@ -1,0 +1,52 @@
+#!/bin/sh
+# Start or stop the agent browser (Helium, Chromium 157).
+#
+#   helium-agent          start unless it is already up, then wait until the
+#                         relay can see it
+#   helium-agent stop     stop it — but only when this script started it, so a
+#                         browser the user opened by hand is never closed
+#
+# The browse extension pairs with the relay on 127.0.0.1:19988 and reconnects
+# by itself. Returning before that reconnect finishes is why a caller's next
+# `status` still said "offline" (measured), so start waits for the process and
+# then a grace period.
+set -eu
+
+state="${XDG_STATE_HOME:-$HOME/.local/state}"
+pidfile="$state/helium-agent.pid"
+mkdir -p "$state"
+
+case "${1:-start}" in
+  stop)
+    if [ ! -f "$pidfile" ]; then
+      echo "helium-agent: not started here, leaving it alone"
+      exit 0
+    fi
+    pkill -x helium 2>/dev/null || true
+    rm -f "$pidfile"
+    echo "helium-agent: stopped"
+    ;;
+  start|"")
+    if [ -f "$pidfile" ] && kill -0 "$(cat "$pidfile")" 2>/dev/null; then
+      echo "helium-agent: already running"
+      exit 0
+    fi
+    setsid "$HOME/.local/opt/helium/helium.AppImage" --appimage-extract-and-run \
+      --user-data-dir="$HOME/.local/share/helium-agent" \
+      --no-first-run --no-default-browser-check >/dev/null 2>&1 &
+    echo $! > "$pidfile"
+    # Wait for the process, then give the extension time to re-attach.
+    i=0
+    while [ $i -lt 40 ]; do
+      pgrep -x helium >/dev/null 2>&1 && break
+      i=$((i + 1))
+      sleep 0.25
+    done
+    sleep 4
+    echo "helium-agent: started, relay should reconnect within a second"
+    ;;
+  *)
+    echo "usage: helium-agent [start|stop]" >&2
+    exit 2
+    ;;
+esac
