@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="ru" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>suwkie.ru</title>
+<style>
+  :root {
+    --font: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+    --text-xs: 12px; --text-sm: 14px; --text-base: 15px;
+    --text-lg: 21px; --text-xl: 32px; --text-2xl: 48px;
+
+    --lh-display: 1.08; --lh-title: 1.2; --lh-body: 1.65;
+    --tr-display: -0.02em; --tr-body: 0;
+
+    --dur-state: 220ms; --dur-layout: 280ms;
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-standard: cubic-bezier(0.4, 0, 0.6, 1);
+
+    --radius: 3px;
+    --gut: clamp(16px, 3vw, 32px);
+    --col: 880px;
+  }
+
+  html[data-theme="light"] {
+    --paper: #f4f2ec; --panel: #eceadf; --ink: #14140f;
+    --muted: #6f6d64; --line: #d6d3c7;
+  }
+  html[data-theme="dark"] {
+    --paper: #121210; --panel: #191917; --ink: #e9e6da;
+    --muted: #948f7f; --line: #2b2a25;
+  }
+
+  * { box-sizing: border-box; }
+  html { background: var(--paper); }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font: 400 var(--text-base)/var(--lh-body) var(--font);
+    letter-spacing: var(--tr-body);
+    transition: background-color var(--dur-state) var(--ease-standard),
+                color var(--dur-state) var(--ease-standard);
+  }
+  ::selection { background: var(--ink); color: var(--paper); }
+
+  .wrap { max-width: var(--col); margin: 0 auto; padding: 0 var(--gut); }
+  .label {
+    font-size: var(--text-xs); line-height: 1.4; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--muted);
+  }
+
+  /* ---------- masthead ---------- */
+  header { border-bottom: 1px solid var(--line); }
+  .bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 60px; }
+  .brand { font-size: var(--text-sm); letter-spacing: -0.01em; }
+  .toggles { display: flex; gap: 8px; }
+  .tog {
+    font: inherit; font-size: var(--text-xs); letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--ink); background: transparent; border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 6px 10px; cursor: pointer;
+    transition: border-color var(--dur-state) var(--ease-out),
+                background-color var(--dur-state) var(--ease-out),
+                transform var(--dur-state) var(--ease-out);
+  }
+  .tog:hover { border-color: var(--ink); }
+  .tog:active { transform: scale(0.97); }
+  .tog[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+  /* ---------- hero ---------- */
+  .hero { padding: clamp(56px, 10vw, 104px) 0 clamp(40px, 6vw, 72px); }
+  h1 {
+    font-size: var(--text-2xl); line-height: var(--lh-display);
+    letter-spacing: var(--tr-display); font-weight: 500; margin: 20px 0 0; max-width: 22ch;
+  }
+  .lede { font-size: var(--text-lg); line-height: 1.45; color: var(--ink); max-width: 52ch; margin: 24px 0 0; }
+  .sub { color: var(--muted); font-size: var(--text-sm); margin: 14px 0 0; max-width: 52ch; }
+
+  /* ---------- sections ---------- */
+  section { border-top: 1px solid var(--line); padding: clamp(36px, 6vw, 64px) 0; }
+  h2 { font-size: var(--text-xl); line-height: var(--lh-title); letter-spacing: -0.015em; font-weight: 500; margin: 10px 0 0; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); margin-top: 32px; }
+  .cell { background: var(--paper); padding: 20px; transition: background-color var(--dur-state) var(--ease-out); }
+  .cell:hover { background: var(--panel); }
+  .cell h3 { font-size: var(--text-base); font-weight: 500; margin: 10px 0 6px; letter-spacing: -0.01em; }
+  .cell p { margin: 0; font-size: var(--text-sm); color: var(--muted); line-height: 1.6; }
+
+  table { width: 100%; border-collapse: collapse; margin-top: 28px; font-size: var(--text-sm); }
+  th, td { text-align: left; padding: 11px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 400; font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.08em; }
+  td.n { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+  .row-list { margin-top: 28px; border: 1px solid var(--line); border-radius: var(--radius); }
+  .item { display: flex; justify-content: space-between; gap: 16px; padding: 16px 18px; border-bottom: 1px solid var(--line); }
+  .item:last-child { border-bottom: 0; }
+  .item span:last-child { color: var(--muted); font-size: var(--text-sm); }
+
+  .demo { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 24px; }
+  .chip {
+    border: 1px solid var(--line); border-radius: var(--radius); padding: 10px 14px;
+    font-size: var(--text-sm); background: transparent; color: var(--ink); cursor: default;
+    transition: transform var(--dur-state) var(--ease-out),
+                border-color var(--dur-state) var(--ease-out),
+                background-color var(--dur-state) var(--ease-out);
+  }
+  .chip:hover { transform: translateY(-2px); border-color: var(--ink); background: var(--panel); }
+  .chip:active { transform: translateY(0) scale(0.985); }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 0 56px; }
+  .foot { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; color: var(--muted); font-size: var(--text-sm); }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <span class="brand">suwkie.ru</span>
+    <div class="toggles">
+      <button class="tog" id="lang" aria-pressed="false">EN</button>
+      <button class="tog" id="theme" aria-pressed="true">Dark</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <p class="label" data-t="hero.label"></p>
+    <h1 data-t="hero.title"></h1>
+    <p class="lede" data-t="hero.lede"></p>
+    <p class="sub" data-t="hero.sub"></p>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <p class="label">01 / <span data-t="s1.label"></span></p>
+      <h2 data-t="s1.title"></h2>
+      <div class="grid">
+        <div class="cell"><p class="label">01</p><h3 data-t="s1.c1.h"></h3><p data-t="s1.c1.p"></p></div>
+        <div class="cell"><p class="label">02</p><h3 data-t="s1.c2.h"></h3><p data-t="s1.c2.p"></p></div>
+        <div class="cell"><p class="label">03</p><h3 data-t="s1.c3.h"></h3><p data-t="s1.c3.p"></p></div>
+        <div class="cell"><p class="label">04</p><h3 data-t="s1.c4.h"></h3><p data-t="s1.c4.p"></p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="label">02 / <span data-t="s2.label"></span></p>
+      <h2 data-t="s2.title"></h2>
+      <table>
+        <thead><tr><th data-t="s2.th1"></th><th data-t="s2.th2"></th><th data-t="s2.th3"></th></tr></thead>
+        <tbody>
+          <tr><td>display</td><td class="n">48 / 1.08</td><td class="n">−0.02em</td></tr>
+          <tr><td>title</td><td class="n">32 / 1.20</td><td class="n">−0.015em</td></tr>
+          <tr><td>lead</td><td class="n">21 / 1.45</td><td class="n">0</td></tr>
+          <tr><td>body</td><td class="n">15 / 1.65</td><td class="n">0</td></tr>
+          <tr><td>label</td><td class="n">12 / 1.40</td><td class="n">+0.08em</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="label">03 / <span data-t="s3.label"></span></p>
+      <h2 data-t="s3.title"></h2>
+      <div class="row-list">
+        <div class="item"><span data-t="s3.r1"></span><span class="n">220 ms</span></div>
+        <div class="item"><span data-t="s3.r2"></span><span class="n">280 ms</span></div>
+        <div class="item"><span data-t="s3.r3"></span><span class="n">opacity · transform</span></div>
+        <div class="item"><span data-t="s3.r4"></span><span class="n">1px · 3px</span></div>
+      </div>
+      <div class="demo">
+        <span class="chip" data-t="s3.chip1"></span>
+        <span class="chip" data-t="s3.chip2"></span>
+        <span class="chip" data-t="s3.chip3"></span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span data-t="foot.left"></span>
+    <span data-t="foot.right"></span>
+  </div>
+</footer>
+
+<script>
+const copy = {
+  ru: {
+    "hero.label": "тестовая страница · 2026-11-17",
+    "hero.title": "Тихо, спокойно, точно.",
+    "hero.lede": "Одна страница, чтобы проверить язык оформления: моноширинный, две темы, hairline-линии, движение до 280 мс.",
+    "hero.sub": "Это не коммерческий сайт. Тот же набор решений должен работать и в приложении — меняются только размеры.",
+    "s1.label": "что это",
+    "s1.title": "Четыре правила, из которых всё состоит.",
+    "s1.c1.h": "Одна гарнитура", "s1.c1.p": "Моноширинный от заголовка до метки. Иерархия — размером и цветом, не сменой шрифта.",
+    "s1.c2.h": "Два тона", "s1.c2.p": "Чернила и бумага. Второй тон — поверхность, а не акцент. Цветного пятна нет намеренно.",
+    "s1.c3.h": "Линии вместо теней", "s1.c3.p": "Граница в один пиксель держит структуру и не размывается. Скругление — три пикселя.",
+    "s1.c4.h": "Движение по делу", "s1.c4.p": "Только отклик и появление. 220 мс на состояние, 280 на раскладку, ничего дольше.",
+    "s2.label": "типографика",
+    "s2.title": "Шкала с обратным интерлиньяжем.",
+    "s2.th1": "уровень", "s2.th2": "размер / интерлиньяж", "s2.th3": "трекинг",
+    "s3.label": "движение и форма",
+    "s3.title": "Меньше трёхсот миллисекунд.",
+    "s3.r1": "наведение и нажатие", "s3.r2": "появление блока",
+    "s3.r3": "что вообще анимируется", "s3.r4": "линия · скругление",
+    "s3.chip1": "наведи", "s3.chip2": "нажми", "s3.chip3": "и всё",
+    "foot.left": "suwkie.ru — для себя, не для продажи.",
+    "foot.right": "обе темы · оба языка · reduce motion уважается"
+  },
+  en: {
+    "hero.label": "test page · 2026-11-17",
+    "hero.title": "Quiet, calm, precise.",
+    "hero.lede": "One page to test the visual language: monospace, two themes, hairline rules, motion under 280 ms.",
+    "hero.sub": "Not a commercial site. The same decisions should hold inside an app — only the sizes change.",
+    "s1.label": "what this is",
+    "s1.title": "Four rules, and nothing else.",
+    "s1.c1.h": "One face", "s1.c1.p": "Monospace from headline to label. Hierarchy comes from size and colour, never from a second family.",
+    "s1.c2.h": "Two tones", "s1.c2.p": "Ink and paper. The second tone is a surface, not an accent. No colour spot, on purpose.",
+    "s1.c3.h": "Rules, not shadows", "s1.c3.p": "A one-pixel border holds the structure without blurring. Corners are three pixels.",
+    "s1.c4.h": "Motion on purpose", "s1.c4.p": "State and entrance only. 220 ms for state, 280 for layout, nothing longer.",
+    "s2.label": "typography",
+    "s2.title": "A scale that inverts its leading.",
+    "s2.th1": "step", "s2.th2": "size / line-height", "s2.th3": "tracking",
+    "s3.label": "motion and form",
+    "s3.title": "Nothing over three hundred milliseconds.",
+    "s3.r1": "hover and press", "s3.r2": "block entrance",
+    "s3.r3": "what is animated at all", "s3.r4": "rule · radius",
+    "s3.chip1": "hover", "s3.chip2": "press", "s3.chip3": "that's it",
+    "foot.left": "suwkie.ru — built for myself, not for sale.",
+    "foot.right": "both themes · both languages · reduce motion respected"
+  }
+};
+
+const root = document.documentElement;
+const langBtn = document.getElementById("lang");
+const themeBtn = document.getElementById("theme");
+let lang = localStorage.getItem("q.lang") || "ru";
+
+function applyLang() {
+  document.documentElement.lang = lang;
+  for (const el of document.querySelectorAll("[data-t]")) {
+    const v = copy[lang][el.dataset.t];
+    if (v) el.textContent = v;
+  }
+  langBtn.textContent = lang === "ru" ? "EN" : "RU";
+  langBtn.setAttribute("aria-pressed", lang === "en");
+}
+
+function applyTheme() {
+  const dark = root.dataset.theme === "dark";
+  themeBtn.textContent = dark ? "Light" : "Dark";
+  themeBtn.setAttribute("aria-pressed", dark);
+  document.body.style.background = "";
+}
+
+if (!localStorage.getItem("q.theme")) {
+  root.dataset.theme = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+} else {
+  root.dataset.theme = localStorage.getItem("q.theme");
+}
+
+langBtn.addEventListener("click", () => {
+  lang = lang === "ru" ? "en" : "ru";
+  localStorage.setItem("q.lang", lang);
+  applyLang();
+});
+
+themeBtn.addEventListener("click", () => {
+  root.dataset.theme = root.dataset.theme === "dark" ? "light" : "dark";
+  localStorage.setItem("q.theme", root.dataset.theme);
+  applyTheme();
+});
+
+applyLang();
+applyTheme();
+</script>
+</body>
+</html>

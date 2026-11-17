@@ -5,6 +5,8 @@ description: Measured type and motion tokens from Linear, Vercel, Stripe and App
 
 # Minimal Type & Motion
 
+Reference measurements. For the user's own interface language, which fixes these into one style, load `quiet-ui` first and use this file as the evidence behind its numbers.
+
 Numbers below were read with `getComputedStyle` from the live sites on 2026-11-17, not from memory. Use them as a starting point, then adjust to the face you actually ship.
 
 ## What the sites actually do

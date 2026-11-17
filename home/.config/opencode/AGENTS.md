@@ -15,7 +15,7 @@ Route before acting. Skills are procedures — load one with the `skill` tool *f
 - Running an unfamiliar or untrusted repo for the first time → `code-security-auditor`
 - API, module boundary, public interface → `api-and-interface-design`
 - Slow paths, Core Web Vitals, N+1, profiling → `performance-optimization`
-- Any UI, frontend, layout, typography or visual work → `impeccable`
+- Any UI for the user's own project → `quiet-ui` (their language); UX review → `impeccable`
 - Concrete type scale, tracking or animation timings → `minimal-type-motion`
 - Poster, static art, PNG/PDF visual → `canvas-design`
 - React + Tailwind + shadcn prototype → `artifacts-builder`
