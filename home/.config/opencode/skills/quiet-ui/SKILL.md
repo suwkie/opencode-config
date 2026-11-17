@@ -1,6 +1,6 @@
 ---
 name: quiet-ui
-description: The user's own interface language - monospace, duotone, hairline rules, no accent colour, smooth motion 220-280 ms with 50 ms stagger. Use when building any UI for them, on web or in a desktop app.
+description: User's own UI language - monospace, duotone, hairlines, no accent colour, smooth motion 220-280 ms with 50 ms stagger. Use for any interface built for them, web or desktop.
 ---
 
 # Quiet UI
