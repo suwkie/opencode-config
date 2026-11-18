@@ -13,6 +13,7 @@ Route before acting. Skills are procedures — load one with the `skill` tool *f
 - Implementing reviewer comments → `review-implementing`
 - Auth, user input, sessions, dependencies, security audit → `security-and-hardening`
 - Running an unfamiliar or untrusted repo for the first time → `code-security-auditor`
+- A security finding must be confirmed or dismissed → `fp-check`
 - API, module boundary, public interface → `api-and-interface-design`
 - Slow paths, Core Web Vitals, N+1, profiling → `performance-optimization`
 - Any UI for the user's own project → `quiet-ui` (their language); UX review → `impeccable`
@@ -25,8 +26,11 @@ Route before acting. Skills are procedures — load one with the `skill` tool *f
 - Where/why question in a repo that has `graphify-out/` → `code-context`
 - Browser testing, screenshots, responsive checks → `playwright-skill`
 - Spreadsheet `.xlsx`/`.csv` work → `xlsx`
+- Russian copy or a request to edit text → `ru-text`
 - PDF extract, merge, fill forms → `pdf`
+- A Word document is the deliverable → `docx`
 - Building an MCP server → `mcp-builder`
+- Writing or improving a skill → `skill-creator`
 - Answer needs numbers, a ranking, or a decision between options → `deep-research`
 - Three or more decisions needed before work can start → `ask-ui`
 - A request names an action but not its shape → `clarify-request`

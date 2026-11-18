@@ -2,7 +2,7 @@
 description: Finds facts and sources - searches the web and GitHub through the real browser, reads docs, compares options. Use when the answer needs evidence with a link and a date, not opinion. Never for code edits.
 mode: subagent
 model: opencode-go/claude-haiku-5-5
-steps: 18
+steps: 30
 permissions:
   - action: edit
     resource: "*"
